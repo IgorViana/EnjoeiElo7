@@ -14,7 +14,7 @@ class LoginRepositoryImpl(private val networking: LoginService) : ILoginReposito
     ): Result<ApiTokenResponse> {
         return try {
             Result.success(
-                networking.getMatchesList(
+                networking.postApiToken(
                     clientId = CLIENT_ID, clientSecret = CLIENT_SECRET, code = code, state = state
                 )
             )
