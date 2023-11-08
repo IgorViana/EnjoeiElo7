@@ -1,5 +1,8 @@
 package com.example.enjoeielo7.di.modules
 
+import com.example.enjoeielo7.network.LoginService
+import com.example.enjoeielo7.repository.ILoginRepository
+import com.example.enjoeielo7.repository.LoginRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +19,14 @@ import javax.inject.Singleton
 class AppModule {
 
     @Provides
+    fun provideLoginRepositoryInstance(network: LoginService): ILoginRepository =
+        LoginRepositoryImpl(networking = network)
+
+    @Provides
+    fun provideLoginServiceInstance(retrofit: Retrofit): LoginService =
+        retrofit.create(LoginService::class.java)
+
+    @Provides
     @Singleton
     fun provideRetrofitInstance(): Retrofit {
 
@@ -30,7 +41,7 @@ class AppModule {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl("https://github.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
