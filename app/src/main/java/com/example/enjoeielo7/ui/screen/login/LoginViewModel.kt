@@ -26,7 +26,14 @@ class LoginViewModel @Inject constructor(
     private var token by application.sharedPreferences("token")
 
     private val _onGetTokenSuccess = MutableLiveData(false)
-    val onGetTokenSuccess: LiveData<Boolean> = _onGetTokenSuccess
+    val onGetTokenSuccess: LiveData<Boolean> get() = _onGetTokenSuccess
+
+   /* private val _onGetApiTokenTriggered = MutableLiveData(false)*/
+    var onGetApiTokenTriggered: Boolean = false
+
+    fun setOnGetApiTokenTriggered() {
+        onGetApiTokenTriggered = true
+    }
     fun getApiToken() {
         viewModelScope.launch {
             repository.getToken(

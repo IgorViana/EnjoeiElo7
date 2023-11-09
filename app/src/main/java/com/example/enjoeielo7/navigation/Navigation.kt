@@ -9,23 +9,21 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.enjoeielo7.ui.screen.login.LoginScreen
+import com.example.enjoeielo7.ui.screen.main.MainScreen
 import com.example.enjoeielo7.util.FULL_AUTH_URL
 
 @Composable
-fun Navigation(navController: NavHostController, wasValidated: Boolean) {
+fun Navigation(navController: NavHostController) {
     NavHost(navController = navController, startDestination = NavigationScreens.LoginScreen.name) {
         composable(NavigationScreens.LoginScreen.name) {
             LoginScreen(
-                wasValidated = wasValidated,
                 onGitHubLoginClick = {
                     openWebIntent(navController.context, FULL_AUTH_URL)
-                }, onGetTokenWithSuccess = {
-                    navController.navigate(NavigationScreens.MainScreen.name)
                 })
         }
 
         composable(NavigationScreens.MainScreen.name) {
-            // TODO Create Main Screen
+            MainScreen()
         }
 
         composable(NavigationScreens.DetailScreen.name) {

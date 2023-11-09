@@ -1,8 +1,12 @@
 package com.example.enjoeielo7.di.modules
 
 import com.example.enjoeielo7.network.LoginService
+import com.example.enjoeielo7.network.UserService
 import com.example.enjoeielo7.repository.ILoginRepository
+import com.example.enjoeielo7.repository.IUserRepository
 import com.example.enjoeielo7.repository.LoginRepositoryImpl
+import com.example.enjoeielo7.repository.UserRepositoryImpl
+import com.example.enjoeielo7.ui.screen.login.LoginViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,8 +27,16 @@ class AppModule {
         LoginRepositoryImpl(networking = network)
 
     @Provides
+    fun provideUserRepositoryInstance(network: UserService): IUserRepository =
+        UserRepositoryImpl(networking = network)
+
+    @Provides
     fun provideLoginServiceInstance(retrofit: Retrofit): LoginService =
         retrofit.create(LoginService::class.java)
+
+    @Provides
+    fun provideUserServiceInstance(retrofit: Retrofit): UserService =
+        retrofit.create(UserService::class.java)
 
     @Provides
     @Singleton

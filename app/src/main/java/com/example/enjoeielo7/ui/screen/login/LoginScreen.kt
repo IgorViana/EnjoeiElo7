@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -20,17 +19,8 @@ import com.example.enjoeielo7.ui.theme.EnjoeiElo7Theme
 
 @Composable
 fun LoginScreen(
-    loginViewModel: LoginViewModel = hiltViewModel(),
-    wasValidated: Boolean,
-    onGitHubLoginClick: () -> Unit,
-    onGetTokenWithSuccess: () -> Unit
+    onGitHubLoginClick: () -> Unit
 ) {
-    val context = LocalContext.current
-    val getTokenSuccess = loginViewModel.onGetTokenSuccess.observeAsState()
-    if (wasValidated) {
-        loginViewModel.getApiToken()
-    }
-
     Box(modifier = Modifier.fillMaxSize()) {
         Button(
             colors = ButtonDefaults.buttonColors(
@@ -45,17 +35,12 @@ fun LoginScreen(
             Text(text = "Login com GitHub", modifier = Modifier.padding(8.dp))
         }
     }
-
-    if (getTokenSuccess.value == true) {
-        onGetTokenWithSuccess()
-    }
-
 }
 
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
     EnjoeiElo7Theme {
-        LoginScreen(wasValidated = false, onGetTokenWithSuccess = {}, onGitHubLoginClick = {})
+        LoginScreen(onGitHubLoginClick = {})
     }
 }
