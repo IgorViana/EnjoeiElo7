@@ -1,17 +1,16 @@
 package com.example.enjoeielo7.repository
 
+import com.example.enjoeielo7.models.mapper.Mapper
+import com.example.enjoeielo7.models.repository.RepositoryItemModel
 import com.example.enjoeielo7.network.UserService
-import com.example.enjoeielo7.network.response.repository.RepositoryListResponseItem
 
 class UserRepositoryImpl(private val networking: UserService) :
     IUserRepository {
-    override suspend fun getUserRepositories(authorization: String): Result<List<RepositoryListResponseItem>> {
+    override suspend fun getUserRepositories(authorization: String): Result<List<RepositoryItemModel>> {
         return try {
-            Result.success(
-                networking.getRepositoryList(
-                    "Bearer $authorization"
-                )
-            )
+            val repositoryResponse = networking.getRepositoryList("Bearer $authorization")
+            val repositoryModel = Mapper().mapRepositoryListResponseToModel(repositoryResponse)
+            Result.success(repositoryModel)
         } catch (ex: Exception) {
             Result.failure(ex)
         }

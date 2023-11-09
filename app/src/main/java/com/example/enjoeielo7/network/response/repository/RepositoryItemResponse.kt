@@ -2,15 +2,15 @@ package com.example.enjoeielo7.network.response.repository
 
 import com.google.gson.annotations.SerializedName
 
-data class RepositoryListResponseItem(
-    @SerializedName("access_token")
-    val name: String,
+data class RepositoryItemResponse(
+    @SerializedName("name")
+    val name: String?,
     @SerializedName("description")
-    val description: String,
+    val description: String?,
     @SerializedName("language")
-    val language: Any,
+    val language: String?,
     @SerializedName("visibility")
-    val visibility: String,
+    val visibility: String?,
     @SerializedName("collaborators_url")
-    val collaboratorsUrl: String,
+    val collaboratorsUrl: String?,
 )

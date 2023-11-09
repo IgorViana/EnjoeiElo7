@@ -1,9 +1,12 @@
 package com.example.enjoeielo7.ui.screen.main
 
 import android.app.Application
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.enjoeielo7.models.repository.RepositoryItemModel
+import com.example.enjoeielo7.network.response.repository.RepositoryItemResponse
 import com.example.enjoeielo7.repository.IUserRepository
 import com.example.enjoeielo7.util.sharedPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,17 +21,19 @@ class MainViewModel @Inject constructor(
 
     private var token by application.sharedPreferences("token")
 
+    private val _repositories = MutableLiveData<List<RepositoryItemModel>>()
+    val repositories: LiveData<List<RepositoryItemModel>> get() = _repositories
+
     init {
-        Log.i("INFO", "Chamou api Repository")
         getUserRepositories()
     }
 
-    fun getUserRepositories() {
+    private fun getUserRepositories() {
         viewModelScope.launch {
             repository.getUserRepositories(
                 authorization = token
             ).onSuccess { response ->
-                Log.i("Teste", response.toString())
+                _repositories.postValue(response)
             }.onFailure { }
         }
     }
