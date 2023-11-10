@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.enjoeielo7.models.repository.RepositoryItemModel
-import com.example.enjoeielo7.network.response.repository.RepositoryItemResponse
 import com.example.enjoeielo7.repository.IUserRepository
 import com.example.enjoeielo7.util.sharedPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel

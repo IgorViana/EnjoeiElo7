@@ -1,11 +1,9 @@
 package com.example.enjoeielo7.ui.item
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -13,10 +11,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.enjoeielo7.R
 import com.example.enjoeielo7.models.repository.RepositoryItemModel
 import com.example.enjoeielo7.models.repository.RepositoryVisibility
 import com.example.enjoeielo7.ui.theme.EnjoeiElo7Theme
@@ -24,10 +20,11 @@ import com.example.enjoeielo7.ui.theme.EnjoeiElo7Theme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RepositoryCardItem(
-    repository: RepositoryItemModel
+    repository: RepositoryItemModel,
+    onRepositoryClick: (item: RepositoryItemModel) -> Unit
 ) {
     Card(
-        onClick = { /*TODO*/ },
+        onClick = { onRepositoryClick(repository) },
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
@@ -43,16 +40,7 @@ fun RepositoryCardItem(
                         .weight(1f)
                         .padding(8.dp)
                 )
-                Image(
-                    painter = painterResource(
-                        id = if (repository.visibility == RepositoryVisibility.PUBLIC) R.drawable.lock_open
-                        else R.drawable.lock_closed
-                    ),
-                    contentDescription = "Locker Icon",
-                    modifier = Modifier
-                        .size(24.dp)
-                        .padding(top = 8.dp)
-                )
+                LockerImage(repository.visibility)
             }
 
             repository.description?.let {
@@ -79,8 +67,9 @@ fun RepositoryCardItemPreview() {
                 description = "Arquiteto de Soluções de problemas grandes",
                 language = "",
                 visibility = RepositoryVisibility.PRIVATE,
-                collaboratorsUrl = "http://www.bing.com/search?q=tation"
+                collaboratorsUrl = "http://www.bing.com/search?q=tation",
+                owner = null
             )
-        )
+        ){}
     }
 }

@@ -1,7 +1,9 @@
 package com.example.enjoeielo7.models.mapper
 
+import com.example.enjoeielo7.models.repository.RepositoryDetailModel
 import com.example.enjoeielo7.models.repository.RepositoryItemModel
 import com.example.enjoeielo7.models.repository.RepositoryVisibility
+import com.example.enjoeielo7.network.response.repository.RepositoryDetailResponse
 import com.example.enjoeielo7.network.response.repository.RepositoryItemResponse
 
 class Mapper {
@@ -13,7 +15,8 @@ class Mapper {
             description = response.description,
             language = response.language,
             visibility = RepositoryVisibility.getVisibility(response.visibility.orEmpty()),
-            collaboratorsUrl = response.collaboratorsUrl
+            collaboratorsUrl = response.collaboratorsUrl,
+            owner = response.owner?.login
         )
     }
 
@@ -26,5 +29,18 @@ class Mapper {
         }
 
         return repository
+    }
+
+    fun mapRepositoryDetailResponseToModel(response: RepositoryDetailResponse, readMe: String? = null): RepositoryDetailModel {
+
+        return RepositoryDetailModel(
+            name = response.name,
+            fullName = response.fullName,
+            description = response.description,
+            visibility = RepositoryVisibility.getVisibility(response.visibility.orEmpty()),
+            forksCount = response.forksCount,
+            starsCount = response.starsCount,
+            readMe = readMe
+        )
     }
 }
