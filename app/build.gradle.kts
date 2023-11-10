@@ -76,7 +76,7 @@ dependencies {
     // Gson Parser
     implementation("com.squareup.retrofit2:converter-gson:2.6.2")
     // Scalars
-    implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
 
     // Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.48")
@@ -92,5 +92,5 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
 
     //LiveData as state
-    implementation ("androidx.compose.runtime:runtime-livedata:1.6.0-alpha08")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.0-alpha08")
 }

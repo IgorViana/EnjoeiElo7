@@ -6,8 +6,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
@@ -18,6 +24,7 @@ import com.example.enjoeielo7.ui.theme.EnjoeiElo7Theme
 import com.example.enjoeielo7.util.sharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 
+@OptIn(ExperimentalMaterial3Api::class)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -33,13 +40,30 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val navController = rememberNavController()
-                    Navigation(navController = navController)
+                    Scaffold(
+                        topBar = {
+                            TopAppBar(
+                                colors = TopAppBarDefaults.smallTopAppBarColors(
+                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                    titleContentColor = MaterialTheme.colorScheme.primary,
+                                ),
+                                title = {
+                                    Text("Teste Elo 7")
+                                }
+                            )
+                        },
+                    ) { paddingValues ->
+                        val navController = rememberNavController()
+                        Navigation(
+                            navController = navController,
+                            modifier = Modifier.padding(paddingValues)
+                        )
 
-                    val success = viewModel.onGetTokenSuccess.observeAsState(initial = false)
-                    if(success.value){
-                        navController.navigate(NavigationScreens.MainScreen.name)
-                        viewModel.resetGetToken()
+                        val success = viewModel.onGetTokenSuccess.observeAsState(initial = false)
+                        if (success.value) {
+                            navController.navigate(NavigationScreens.MainScreen.name)
+                            viewModel.resetGetToken()
+                        }
                     }
                 }
             }

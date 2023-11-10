@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -16,9 +17,13 @@ import com.example.enjoeielo7.ui.screen.main.MainScreen
 import com.example.enjoeielo7.util.FULL_AUTH_URL
 
 @Composable
-fun Navigation(navController: NavHostController) {
+fun Navigation(navController: NavHostController, modifier: Modifier = Modifier) {
 
-    NavHost(navController = navController, startDestination = NavigationScreens.LoginScreen.name) {
+    NavHost(
+        navController = navController,
+        startDestination = NavigationScreens.LoginScreen.name,
+        modifier = modifier
+    ) {
         composable(NavigationScreens.LoginScreen.name) {
             LoginScreen(
                 onGitHubLoginClick = {
