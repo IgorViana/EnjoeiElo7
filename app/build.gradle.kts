@@ -75,6 +75,8 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
     // Gson Parser
     implementation("com.squareup.retrofit2:converter-gson:2.6.2")
+    // Scalars
+    implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
 
     // Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.48")

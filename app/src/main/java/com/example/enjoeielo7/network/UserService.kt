@@ -23,4 +23,12 @@ interface UserService {
         @Path("owner") owner: String,
         @Path("repo") repositoryName: String,
     ): RepositoryDetailResponse
+
+    @GET("https://raw.githubusercontent.com/{owner}/{repo}/{branch}/README.md")
+    suspend fun getRepositoryReadMe(
+        @Header("Authorization") authorization: String,
+        @Path("owner") owner: String,
+        @Path("repo") repositoryName: String,
+        @Path("branch") branch: String,
+    ): String?
 }

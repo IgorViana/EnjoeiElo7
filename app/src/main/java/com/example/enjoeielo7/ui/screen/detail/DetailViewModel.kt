@@ -34,7 +34,9 @@ class DetailViewModel @Inject constructor(
     private fun getRepositoryData() {
         viewModelScope.launch {
             repository.getRepositoryDetail(
-                owner = owner, repositoryName = repositoryName, authorization = token
+                owner = owner,
+                repositoryName = repositoryName,
+                authorization = token
             ).onSuccess { response ->
                 _repositoryDetail.postValue(response)
             }.onFailure { }

@@ -19,9 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.enjoeielo7.R
-import com.example.enjoeielo7.models.repository.RepositoryVisibility
 import com.example.enjoeielo7.ui.item.LockerImage
-import com.example.enjoeielo7.ui.screen.main.MainViewModel
 import com.example.enjoeielo7.ui.theme.EnjoeiElo7Theme
 
 @Composable
@@ -29,60 +27,67 @@ fun DetailScreen(
     detailViewModel: DetailViewModel = hiltViewModel()
 ) {
     val repository = detailViewModel.repositoryDetail.observeAsState()
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(8.dp)
-    ) {
-        Row(
+    repository.value?.apply {
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.CenterHorizontally)
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(8.dp)
         ) {
-            LockerImage(RepositoryVisibility.PUBLIC)
-            Text(
-                text = repository.value?.fullName.orEmpty(), modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 8.dp)
-            )
-        }
-
-        Text(
-            text = repository.value?.description.orEmpty(), modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp)
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 8.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.star),
-                contentDescription = "Star Icon",
+            Row(
                 modifier = Modifier
-                    .size(24.dp)
-            )
-            Text(text = "0 stars")
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                LockerImage(visibility)
+                Text(
+                    text = repository.value?.fullName.orEmpty(), modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 8.dp)
+                )
+            }
 
-            Image(
-                painter = painterResource(id = R.drawable.fork),
-                contentDescription = "Star Icon",
+            description?.let {
+                Text(
+                    text = it,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp)
+                )
+            }
+
+
+            Row(
                 modifier = Modifier
-                    .size(24.dp)
-            )
-            Text(text = "0 forks")
-        }
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 8.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.star),
+                    contentDescription = "Star Icon",
+                    modifier = Modifier
+                        .size(24.dp)
+                )
+                Text(text = "$starsCount stars")
 
-        Text(
-            text = "README", modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp)
-        )
+                Image(
+                    painter = painterResource(id = R.drawable.fork),
+                    contentDescription = "Star Icon",
+                    modifier = Modifier
+                        .size(24.dp)
+                )
+                Text(text = "$forksCount forks")
+            }
+
+            readMe?.let {
+                Text(
+                    text = readMe, modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp)
+                )
+            }
+        }
     }
 }
 

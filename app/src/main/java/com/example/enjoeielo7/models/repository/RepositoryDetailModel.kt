@@ -7,5 +7,6 @@ data class RepositoryDetailModel(
     val visibility: RepositoryVisibility,
     val forksCount: Long = 0,
     val starsCount: Long = 0,
-    val readMe: String? = null
+    val readMe: String? = null,
+    val defaultBranch: String?,
 )

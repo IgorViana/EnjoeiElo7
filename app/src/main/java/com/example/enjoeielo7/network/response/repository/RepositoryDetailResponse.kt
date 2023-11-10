@@ -15,4 +15,6 @@ data class RepositoryDetailResponse(
     val forksCount: Long = 0,
     @SerializedName("stargazers_count")
     val starsCount: Long = 0,
+    @SerializedName("default_branch")
+    val defaultBranch: String?,
 )

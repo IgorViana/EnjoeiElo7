@@ -14,4 +14,11 @@ interface IUserRepository {
         owner: String,
         repositoryName: String,
     ): Result<RepositoryDetailModel>
+
+    suspend fun getRepositoryReadMe(
+        authorization: String,
+        owner: String,
+        repositoryName: String,
+        branch: String,
+    ): String?
 }

@@ -40,7 +40,8 @@ class Mapper {
             visibility = RepositoryVisibility.getVisibility(response.visibility.orEmpty()),
             forksCount = response.forksCount,
             starsCount = response.starsCount,
-            readMe = readMe
+            readMe = readMe,
+            defaultBranch = response.defaultBranch
         )
     }
 }

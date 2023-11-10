@@ -28,10 +28,35 @@ class UserRepositoryImpl(private val networking: UserService) :
                 owner = owner,
                 repositoryName = repositoryName
             )
-            val repositoryModel = Mapper().mapRepositoryDetailResponseToModel(repositoryResponse)
+            val readMe = getRepositoryReadMe(
+                authorization = authorization,
+                owner = owner,
+                repositoryName = repositoryName,
+                branch = repositoryResponse.defaultBranch.orEmpty()
+            )
+            val repositoryModel =
+                Mapper().mapRepositoryDetailResponseToModel(repositoryResponse, readMe)
             Result.success(repositoryModel)
         } catch (ex: Exception) {
             Result.failure(ex)
+        }
+    }
+
+    override suspend fun getRepositoryReadMe(
+        authorization: String,
+        owner: String,
+        repositoryName: String,
+        branch: String
+    ): String? {
+        return try {
+            networking.getRepositoryReadMe(
+                authorization = "Bearer $authorization",
+                owner = owner,
+                repositoryName = repositoryName,
+                branch = branch
+            )
+        } catch (ex: Exception) {
+            null
         }
     }
 }
