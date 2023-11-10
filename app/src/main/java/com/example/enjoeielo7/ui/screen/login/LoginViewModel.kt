@@ -27,13 +27,6 @@ class LoginViewModel @Inject constructor(
 
     private val _onGetTokenSuccess = MutableLiveData(false)
     val onGetTokenSuccess: LiveData<Boolean> get() = _onGetTokenSuccess
-
-   /* private val _onGetApiTokenTriggered = MutableLiveData(false)*/
-    var onGetApiTokenTriggered: Boolean = false
-
-    fun setOnGetApiTokenTriggered() {
-        onGetApiTokenTriggered = true
-    }
     fun getApiToken() {
         viewModelScope.launch {
             repository.getToken(
@@ -46,5 +39,9 @@ class LoginViewModel @Inject constructor(
                 _onGetTokenSuccess.postValue(true)
             }.onFailure { }
         }
+    }
+
+    fun resetGetToken() {
+        _onGetTokenSuccess.value = false
     }
 }

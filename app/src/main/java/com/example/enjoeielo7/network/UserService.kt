@@ -1,5 +1,6 @@
 package com.example.enjoeielo7.network
 
+import com.example.enjoeielo7.network.response.repository.RepositoryCollaboratorResponse
 import com.example.enjoeielo7.network.response.repository.RepositoryDetailResponse
 import com.example.enjoeielo7.network.response.repository.RepositoryItemResponse
 import retrofit2.http.GET
@@ -31,4 +32,12 @@ interface UserService {
         @Path("repo") repositoryName: String,
         @Path("branch") branch: String,
     ): String?
+
+    @Headers("Accept: application/vnd.github+json")
+    @GET("https://api.github.com/repos/{owner}/{repo}/collaborators")
+    suspend fun getRepositoryCollaborators(
+        @Header("Authorization") authorization: String,
+        @Path("owner") owner: String,
+        @Path("repo") repositoryName: String,
+    ): RepositoryCollaboratorResponse
 }

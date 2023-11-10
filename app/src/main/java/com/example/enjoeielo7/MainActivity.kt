@@ -39,6 +39,7 @@ class MainActivity : ComponentActivity() {
                     val success = viewModel.onGetTokenSuccess.observeAsState(initial = false)
                     if(success.value){
                         navController.navigate(NavigationScreens.MainScreen.name)
+                        viewModel.resetGetToken()
                     }
                 }
             }

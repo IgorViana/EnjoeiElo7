@@ -4,6 +4,7 @@ import com.example.enjoeielo7.models.mapper.Mapper
 import com.example.enjoeielo7.models.repository.RepositoryDetailModel
 import com.example.enjoeielo7.models.repository.RepositoryItemModel
 import com.example.enjoeielo7.network.UserService
+import com.example.enjoeielo7.network.response.repository.RepositoryCollaboratorResponse
 
 class UserRepositoryImpl(private val networking: UserService) :
     IUserRepository {
@@ -54,6 +55,22 @@ class UserRepositoryImpl(private val networking: UserService) :
                 owner = owner,
                 repositoryName = repositoryName,
                 branch = branch
+            )
+        } catch (ex: Exception) {
+            null
+        }
+    }
+
+    override suspend fun getRepositoryCollaborators(
+        authorization: String,
+        owner: String,
+        repositoryName: String
+    ): RepositoryCollaboratorResponse? {
+        return try {
+            networking.getRepositoryCollaborators(
+                authorization = "Bearer $authorization",
+                owner = owner,
+                repositoryName = repositoryName
             )
         } catch (ex: Exception) {
             null
