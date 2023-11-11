@@ -2,6 +2,7 @@
 
 package com.example.enjoeielo7.ui.screen.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,6 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,6 +20,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -43,7 +46,10 @@ fun MainScreen(
 
     Scaffold(
         bottomBar = {
-            TabRow(selectedTabIndex = tabIndex) {
+            TabRow(
+                selectedTabIndex = tabIndex,
+                containerColor = Color.LightGray
+            ) {
                 titles.forEachIndexed { index, title ->
                     Tab(
                         text = { Text(title) },
@@ -53,6 +59,7 @@ fun MainScreen(
                 }
             }
         },
+        containerColor = Color.LightGray,
         content = { paddingValues ->
             Column(
                 modifier = Modifier

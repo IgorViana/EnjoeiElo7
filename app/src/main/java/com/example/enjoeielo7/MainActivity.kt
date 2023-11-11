@@ -16,6 +16,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
 import com.example.enjoeielo7.navigation.Navigation
 import com.example.enjoeielo7.navigation.NavigationScreens
@@ -45,7 +46,7 @@ class MainActivity : ComponentActivity() {
                             TopAppBar(
                                 colors = TopAppBarDefaults.smallTopAppBarColors(
                                     containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                    titleContentColor = MaterialTheme.colorScheme.primary,
+                                    titleContentColor = Color.White,
                                 ),
                                 title = {
                                     Text("Teste Elo 7")

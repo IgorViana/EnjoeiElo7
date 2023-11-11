@@ -22,7 +22,7 @@ class RepositoryPagingSource(
             repositories.forEach { repository ->
                 val collaborators = network.getRepositoryCollaborators(
                     authorization = authorization,
-                    owner =  repository.owner?.login.orEmpty(),
+                    owner = repository.owner?.login.orEmpty(),
                     repositoryName = repository.name.orEmpty()
                 )
                 repository.collaboratorsUrl = collaborators

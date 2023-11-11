@@ -15,6 +15,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -41,9 +43,11 @@ fun DetailScreen(
             ) {
                 LockerImage(visibility)
                 Text(
-                    text = repository.value?.fullName.orEmpty(), modifier = Modifier
+                    text = repository.value?.fullName.orEmpty(),
+                    modifier = Modifier
                         .weight(1f)
-                        .padding(start = 8.dp)
+                        .padding(start = 8.dp),
+                    fontWeight = FontWeight.Bold
                 )
             }
 
@@ -68,19 +72,28 @@ fun DetailScreen(
                     contentDescription = "Star Icon",
                     modifier = Modifier
                         .size(24.dp)
+                        .padding(end = 8.dp)
                 )
-                Text(text = "$starsCount stars")
+                Text(text = "$starsCount stars",modifier = Modifier
+                    .padding(end = 8.dp))
 
                 Image(
                     painter = painterResource(id = R.drawable.fork),
-                    contentDescription = "Star Icon",
+                    contentDescription = "Fork Icon",
                     modifier = Modifier
                         .size(24.dp)
+                        .padding(end = 8.dp)
                 )
                 Text(text = "$forksCount forks")
             }
 
+
             readMe?.let {
+                Text(
+                    text = stringResource(R.string.readme_md), modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp), fontWeight = FontWeight.Bold
+                )
                 Text(
                     text = readMe, modifier = Modifier
                         .fillMaxWidth()

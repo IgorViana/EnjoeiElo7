@@ -11,10 +11,13 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -36,29 +39,41 @@ fun RepositoryCardItem(
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 8.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
         )
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Row(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
                     text = repository.name.orEmpty(), modifier = Modifier
                         .weight(1f)
-                        .padding(8.dp)
+                        .padding(8.dp),
+                    fontWeight = FontWeight.Bold
                 )
                 LockerImage(repository.visibility)
             }
 
             repository.description?.let {
-                Text(text = it, modifier = Modifier.padding(8.dp))
+                Text(
+                    text = it,
+                    modifier = Modifier.padding(8.dp)
+                )
             }
 
             repository.language?.let {
                 Text(text = it, modifier = Modifier.padding(8.dp))
             }
 
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            ) {
                 repository.collaboratorsUrl.forEach { url ->
                     url?.let {
                         AsyncImage(
