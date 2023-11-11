@@ -1,10 +1,15 @@
 package com.example.enjoeielo7.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.enjoeielo7.models.mapper.Mapper
 import com.example.enjoeielo7.models.repository.RepositoryDetailModel
 import com.example.enjoeielo7.models.repository.RepositoryItemModel
 import com.example.enjoeielo7.network.UserService
 import com.example.enjoeielo7.network.response.repository.RepositoryCollaboratorResponse
+import com.example.enjoeielo7.paging.RepositoryPagingSource
+import kotlinx.coroutines.flow.Flow
 
 class UserRepositoryImpl(private val networking: UserService) :
     IUserRepository {
@@ -16,6 +21,18 @@ class UserRepositoryImpl(private val networking: UserService) :
         } catch (ex: Exception) {
             Result.failure(ex)
         }
+    }
+
+    override suspend fun getPagedUserRepositories(authorization: String): Flow<PagingData<RepositoryItemModel>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                RepositoryPagingSource(
+                    network = networking,
+                    authorization = "Bearer $authorization"
+                )
+            }
+        ).flow
     }
 
     override suspend fun getRepositoryDetail(

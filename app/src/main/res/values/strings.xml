@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EnjoeiElo7</string>
+    <string name="publicos">PÚBLICOS</string>
+    <string name="privados">PRIVADOS</string>
 </resources>

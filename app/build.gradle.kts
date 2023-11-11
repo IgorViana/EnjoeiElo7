@@ -93,4 +93,8 @@ dependencies {
 
     //LiveData as state
     implementation("androidx.compose.runtime:runtime-livedata:1.6.0-alpha08")
+
+    //Paging
+    implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation ("androidx.paging:paging-compose:3.3.0-alpha02")
 }
