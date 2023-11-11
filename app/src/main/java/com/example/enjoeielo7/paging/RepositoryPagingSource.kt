@@ -6,6 +6,10 @@ import com.example.enjoeielo7.models.mapper.Mapper
 import com.example.enjoeielo7.models.repository.RepositoryItemModel
 import com.example.enjoeielo7.network.UserService
 import com.example.enjoeielo7.network.response.repository.RepositoryItemResponse
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 
 class RepositoryPagingSource(
     private val network: UserService,
@@ -19,14 +23,18 @@ class RepositoryPagingSource(
                 authorization = authorization,
                 page = currentPage
             )
-            repositories.forEach { repository ->
-                val collaborators = network.getRepositoryCollaborators(
-                    authorization = authorization,
-                    owner = repository.owner?.login.orEmpty(),
-                    repositoryName = repository.name.orEmpty()
-                )
-                repository.collaboratorsUrl = collaborators
+
+            val jobs = repositories.map { repository ->
+                CoroutineScope(Dispatchers.IO).async {
+                    val collaborators = network.getRepositoryCollaborators(
+                        authorization = authorization,
+                        owner = repository.owner?.login.orEmpty(),
+                        repositoryName = repository.name.orEmpty()
+                    )
+                    repository.collaboratorsUrl = collaborators
+                }
             }
+            jobs.awaitAll()
 
             val result = Mapper().mapRepositoryListResponseToModel(repositories)
             LoadResult.Page(
