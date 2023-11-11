@@ -5,6 +5,6 @@ data class RepositoryItemModel(
     val description: String?,
     val language: String?,
     val visibility: RepositoryVisibility = RepositoryVisibility.PRIVATE,
-    val collaboratorsUrl: String?,
+    val collaboratorsUrl: List<String?> = emptyList(),
     val owner: String?
 )

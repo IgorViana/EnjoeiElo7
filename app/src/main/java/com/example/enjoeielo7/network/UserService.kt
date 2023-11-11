@@ -41,5 +41,5 @@ interface UserService {
         @Header("Authorization") authorization: String,
         @Path("owner") owner: String,
         @Path("repo") repositoryName: String,
-    ): RepositoryCollaboratorResponse
+    ): List<RepositoryCollaboratorResponse>
 }

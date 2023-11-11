@@ -19,6 +19,15 @@ class RepositoryPagingSource(
                 authorization = authorization,
                 page = currentPage
             )
+            repositories.forEach { repository ->
+                val collaborators = network.getRepositoryCollaborators(
+                    authorization = authorization,
+                    owner =  repository.owner?.login.orEmpty(),
+                    repositoryName = repository.name.orEmpty()
+                )
+                repository.collaboratorsUrl = collaborators
+            }
+
             val result = Mapper().mapRepositoryListResponseToModel(repositories)
             LoadResult.Page(
                 data = result,

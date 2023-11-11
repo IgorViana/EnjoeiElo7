@@ -33,5 +33,5 @@ interface IUserRepository {
         authorization: String,
         owner: String,
         repositoryName: String,
-    ): RepositoryCollaboratorResponse?
+    ): List<RepositoryCollaboratorResponse?>
 }

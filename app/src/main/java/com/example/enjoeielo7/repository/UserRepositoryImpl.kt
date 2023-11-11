@@ -82,7 +82,7 @@ class UserRepositoryImpl(private val networking: UserService) :
         authorization: String,
         owner: String,
         repositoryName: String
-    ): RepositoryCollaboratorResponse? {
+    ): List<RepositoryCollaboratorResponse?> {
         return try {
             networking.getRepositoryCollaborators(
                 authorization = "Bearer $authorization",
@@ -90,7 +90,7 @@ class UserRepositoryImpl(private val networking: UserService) :
                 repositoryName = repositoryName
             )
         } catch (ex: Exception) {
-            null
+            emptyList<RepositoryCollaboratorResponse>()
         }
     }
 }

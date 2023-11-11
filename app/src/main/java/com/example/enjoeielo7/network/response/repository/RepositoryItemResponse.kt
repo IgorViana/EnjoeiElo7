@@ -11,8 +11,7 @@ data class RepositoryItemResponse(
     val language: String?,
     @SerializedName("visibility")
     val visibility: String?,
-    @SerializedName("collaborators_url")
-    val collaboratorsUrl: String?,
     @SerializedName("owner")
     val owner: OwnerResponse?,
+    var collaboratorsUrl: List<RepositoryCollaboratorResponse> = emptyList(),
 )

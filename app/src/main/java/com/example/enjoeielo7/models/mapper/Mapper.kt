@@ -15,7 +15,7 @@ class Mapper {
             description = response.description,
             language = response.language,
             visibility = RepositoryVisibility.getVisibility(response.visibility.orEmpty()),
-            collaboratorsUrl = response.collaboratorsUrl,
+            collaboratorsUrl = response.collaboratorsUrl.map { it.avatarUrl },
             owner = response.owner?.login
         )
     }
